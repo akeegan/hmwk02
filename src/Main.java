@@ -37,8 +37,8 @@ public class Main {
         String user = "csc254";
         String password = "age126";
         String queryString1 = "SELECT city, state, `long`, lat FROM zips2 WHERE zipcode like '"+enterZip+"' LIMIT 5";
-        String queryString = "SELECT city, state, zipcode, estimatedpopulation, country, `long`, lat FROM zips2 WHERE locationtype LIKE 'PRIMARY' AND zipcodetype LIKE 'STANDARD' LIMIT 100";
-        ArrayList<Place> places = new ArrayList<Place>();//to hold all the places read in from database
+        String queryString = "SELECT city, state, zipcode, estimatedpopulation, country, `long`, lat FROM zips2 WHERE locationtype LIKE 'PRIMARY' AND zipcodetype LIKE 'STANDARD'";
+        ArrayList<Place> listPlaces = new ArrayList<Place>();//to hold all the places read in from database
 
         System.out.println(queryString1);
 
@@ -88,21 +88,41 @@ public class Main {
                 int estpop = rs.getInt("estimatedpopulation");
                 double lat = rs.getDouble("lat");
                 double lon = rs.getDouble("long");
-                Haversine test = new Haversine(latitude,longitude,lat,lon);
-                test.calcHaversine();
-                if(calcHaversine == milesToKm) {
-                    Place place = new Place(city, state, zipcode, estpop, lat, lon);
-                    places.add(place);//adding object to arraylist
+
+                Haversine test = new Haversine(latitude,longitude,lat,lon);//creates Haversine object
+                double testDistance = test.calcHaversine();// does the Haversine distance formaula
+
+                //compares the distance calculated by the haversine class and the given milesToKm
+                //within a 5 km distance of the given milesToKm
+                if(testDistance >= milesToKm-5 && testDistance <=milesToKm+5) {
+                    System.out.println(testDistance);
+                    Place place = new Place(city, state, zipcode, estpop, lat, lon); // creates place object
+                    listPlaces.add(place);//adding object to arraylist
+                    System.out.println(count+" "+place);
+
                 }
 
-               // System.out.println(count+" "+place);
+
                 count++;
 
-            }
+            }//end while loop
 
-            for(int i=0;i<=places.size()-1;i++){
+            //compares all the places added using the equals method in Place class.
+            //If the state and state are the same then it
+            for(int i =0; i<=listPlaces.size()-1;i++){
+                for(int j =i+1; j< listPlaces.size()-2; j++){
+                    if((listPlaces.get(i)).equals(listPlaces.get(j))){
+                        int newPop = ((listPlaces.get(j)).getEstimatedpopulation()) + ((listPlaces.get(i)).getEstimatedpopulation());
+                        (listPlaces.get(i)).setEstimatedpopulation(newPop);
+                        listPlaces.remove(j);
+                    }//end of if
 
-                System.out.println(i+" "+places.get(i).toString());
+                }//end of inner for
+            }//end of outer for
+
+            for(int i=0;i<=listPlaces.size()-1;i++){
+
+                System.out.println(i+" "+listPlaces.get(i).toString());
             }
 
             conn.close();

@@ -76,14 +76,14 @@ public class Place {
         if (this == o) return true;
         if (!(o instanceof Place)) return false;
         Place place = (Place) o;
-        return Objects.equals(city, place.city) &&
-                Objects.equals(zipcode, place.zipcode);
+        return Objects.equals(getCity(), place.getCity()) &&
+                Objects.equals(getState(), place.getState());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(city, zipcode);
+        return Objects.hash(getCity(), getState());
     }
 
     @Override
