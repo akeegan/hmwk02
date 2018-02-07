@@ -13,7 +13,7 @@ public class Haversine {
         this.lon2 = lon2;
     }
 
-    public double haversine() {
+    public double calcHaversine() {
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
         lat1 = Math.toRadians(lat1);
