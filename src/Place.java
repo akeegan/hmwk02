@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Place {
@@ -8,19 +7,23 @@ public class Place {
     int estimatedpopulation;
     double latitude;
     double longitude;
+    double distanceFromZipKm;
+    double distanceFromZipMiles;
 
 
-    double distanceFromOrigin;
+
 
     //constructor
-    public Place(String city, String state, String zipcode, int estimatedpopulation, double latitude, double longitude) {
+    public Place(String city, String state, String zipcode, int estimatedpopulation, double latitude, double longitude, double distanceFromZipKm) {
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
         this.estimatedpopulation = estimatedpopulation;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.distanceFromOrigin = -1;
+        this.distanceFromZipKm = distanceFromZipKm;
+        this.distanceFromZipMiles = distanceFromZipKm*0.62;
+
     }
 
     public String getCity() {
@@ -70,6 +73,15 @@ public class Place {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+    public double getDistanceFromZipKm() {
+        return distanceFromZipKm;
+    }
+
+    public void setDistanceFromZipKm(int distanceFromZipKm) {
+        this.distanceFromZipKm = distanceFromZipKm;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -88,15 +100,15 @@ public class Place {
 
     @Override
     public String toString() {
-        return "Place{" +
-                "city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", estimatedpopulation=" + estimatedpopulation +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", distanceFromOrigin=" + distanceFromOrigin +
-                '}';
+        return "City:" + city + '\'' +
+                ", State " + state + '\'' +
+                ", Zipcode " + zipcode + '\'' +
+                ", Estimated Population " + estimatedpopulation +
+                ", Latitude" + latitude +
+                ", Longitude " + longitude +
+                ", distance from zipcode in KM " + distanceFromZipKm +
+                ", distance from zipcode in Miles " + distanceFromZipMiles +
+                ".";
     }
 
 }

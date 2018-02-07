@@ -40,8 +40,6 @@ public class Main {
         String queryString = "SELECT city, state, zipcode, estimatedpopulation, country, `long`, lat FROM zips2 WHERE locationtype LIKE 'PRIMARY' AND zipcodetype LIKE 'STANDARD'";
         ArrayList<Place> listPlaces = new ArrayList<Place>();//to hold all the places read in from database
 
-        System.out.println(queryString1);
-
         try {
             conn = DriverManager.getConnection(host,user, password);
 
@@ -74,7 +72,7 @@ public class Main {
                 latitude = rs1.getDouble("lat");
                 longitude = rs1.getDouble("long");
 
-                System.out.println(city+" "+latitude+" "+longitude);
+                System.out.println("Test: "+city+" "+latitude+" "+longitude);
             }
 
             int count =0;
@@ -93,12 +91,11 @@ public class Main {
                 double testDistance = test.calcHaversine();// does the Haversine distance formaula
 
                 //compares the distance calculated by the haversine class and the given milesToKm
-                //within a 5 km distance of the given milesToKm
-                if(testDistance >= milesToKm-5 && testDistance <=milesToKm+5) {
-                    System.out.println(testDistance);
-                    Place place = new Place(city, state, zipcode, estpop, lat, lon); // creates place object
+                if(testDistance <=milesToKm) {
+                  //  System.out.println(testDistance);
+                    Place place = new Place(city, state, zipcode, estpop, lat, lon, testDistance); // creates place object
                     listPlaces.add(place);//adding object to arraylist
-                    System.out.println(count+" "+place);
+                    //System.out.println(count+" "+place);
 
                 }
 
@@ -116,12 +113,21 @@ public class Main {
                         (listPlaces.get(i)).setEstimatedpopulation(newPop);
                         listPlaces.remove(j);
                     }//end of if
-
+                }//end of inner for
+            }//end of outer for
+            //Compare again to make sure duplicates are removed.
+            for(int i =0; i<=listPlaces.size()-1;i++){
+                for(int j =i+1; j< listPlaces.size()-2; j++){
+                    if((((listPlaces.get(i).getCity())).equals((listPlaces.get(j)).getCity())) && ((listPlaces.get(i).getState())).equals((listPlaces.get(j)).getState())){
+                        int newPop = ((listPlaces.get(j)).getEstimatedpopulation()) + ((listPlaces.get(i)).getEstimatedpopulation());
+                        (listPlaces.get(i)).setEstimatedpopulation(newPop);
+                        listPlaces.remove(j);
+                    }//end of if
                 }//end of inner for
             }//end of outer for
 
+            System.out.println("Finished! There are "+(listPlaces.size()-1)+" places within "+enterMiles+" miles from this zipocde: "+enterZip +". Here are the list of places within this distance.");
             for(int i=0;i<=listPlaces.size()-1;i++){
-
                 System.out.println(i+" "+listPlaces.get(i).toString());
             }
 
