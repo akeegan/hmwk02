@@ -4,11 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 /*
 Andrea Koch, CSC 346, Spring 2018, Homework02
  */
-
 
 public class Main {
     static Connection conn;
@@ -68,7 +66,6 @@ public class Main {
                 System.out.printf("Column %2d: %s (%s)\n",i, rsMetaData1.getColumnName(i),rsMetaData1.getColumnTypeName(i));
             }
             //finding the longitude and latitude given the uder zipcode
-
             while(rs1.next()){
                 String city = rs1.getString("city");
                 latitude = rs1.getDouble("lat");
@@ -94,16 +91,12 @@ public class Main {
 
                 //compares the distance calculated by the haversine class and the given milesToKm
                 if(testDistance <=milesToKm) {
-                  //  System.out.println(testDistance);
                     Place place = new Place(city, state, zipcode, estpop, lat, lon, testDistance); // creates place object
                     listPlaces.add(place);//adding object to arraylist
-                    //System.out.println(count+" "+place);
 
                 }
 
-
                 count++;
-
             }//end while loop
 
             //compares all the places added using the equals method in Place class.
