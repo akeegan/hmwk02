@@ -36,7 +36,9 @@ public class Main {
         String host = "jdbc:mysql://turing.cs.missouriwestern.edu:3306/misc";
         String user = "csc254";
         String password = "age126";
+        //the select statement to for inputed zipcode
         String queryString1 = "SELECT city, state, `long`, lat FROM zips2 WHERE zipcode like '"+enterZip+"' LIMIT 5";
+        //the select statement to add and calculate the distances of each zipcode, city/state
         String queryString = "SELECT city, state, zipcode, estimatedpopulation, country, `long`, lat FROM zips2 WHERE locationtype LIKE 'PRIMARY' AND zipcodetype LIKE 'STANDARD'";
         ArrayList<Place> listPlaces = new ArrayList<Place>();//to hold all the places read in from database
 
@@ -127,6 +129,7 @@ public class Main {
             }//end of outer for
 
             System.out.println("Finished! There are "+(listPlaces.size()-1)+" places within "+enterMiles+" miles from this zipocde: "+enterZip +". Here are the list of places within this distance.");
+            //print out the list of places that are within inputed distance
             for(int i=0;i<=listPlaces.size()-1;i++){
                 System.out.println(i+" "+listPlaces.get(i).toString());
             }

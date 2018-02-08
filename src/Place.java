@@ -10,9 +10,6 @@ public class Place {
     double distanceFromZipKm;
     double distanceFromZipMiles;
 
-
-
-
     //constructor
     public Place(String city, String state, String zipcode, int estimatedpopulation, double latitude, double longitude, double distanceFromZipKm) {
         this.city = city;
@@ -22,7 +19,7 @@ public class Place {
         this.latitude = latitude;
         this.longitude = longitude;
         this.distanceFromZipKm = distanceFromZipKm;
-        this.distanceFromZipMiles = distanceFromZipKm*0.62;
+        this.distanceFromZipMiles = distanceFromZipKm*0.62;//convert KM to miles
 
     }
 
@@ -80,8 +77,6 @@ public class Place {
     public void setDistanceFromZipKm(int distanceFromZipKm) {
         this.distanceFromZipKm = distanceFromZipKm;
     }
-
-
 
     @Override
     public boolean equals(Object o) {

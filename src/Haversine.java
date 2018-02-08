@@ -1,3 +1,5 @@
+//source: https://github.com/acmeism/RosettaCodeData/blob/master/Task/Haversine-formula/Java/haversine-formula.java
+
 public class Haversine {
 
     public final double R = 6371; // In kilometers
