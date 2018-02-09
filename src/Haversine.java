@@ -21,9 +21,11 @@ public class Haversine {
         lat1 = Math.toRadians(lat1);
         lat2 = Math.toRadians(lat2);
 
-        double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        return R * c;
+        double a = Math.pow(Math.sin(dLat / 2.0),2.0) + Math.pow(Math.sin(dLon / 2.0),2.0) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2.0 * Math.asin(Math.sqrt(a));
+        double distance = Math.round(((R*c)*10.0)/10.0);
+
+        return R*c;
     }
 
 }

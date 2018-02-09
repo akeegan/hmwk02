@@ -19,7 +19,7 @@ public class Place {
         this.latitude = latitude;
         this.longitude = longitude;
         this.distanceFromZipKm = distanceFromZipKm;
-        this.distanceFromZipMiles = distanceFromZipKm*0.62;//convert KM to miles
+        this.distanceFromZipMiles = distanceFromZipKm*0.62137;//convert KM to miles
 
     }
 
@@ -76,6 +76,13 @@ public class Place {
 
     public void setDistanceFromZipKm(int distanceFromZipKm) {
         this.distanceFromZipKm = distanceFromZipKm;
+    }
+    public double getDistanceFromZipMiles() {
+        return distanceFromZipMiles;
+    }
+
+    public void setDistanceFromZipMiles(int distanceFromZipMiles) {
+        this.distanceFromZipKm = distanceFromZipMiles;
     }
 
     @Override
